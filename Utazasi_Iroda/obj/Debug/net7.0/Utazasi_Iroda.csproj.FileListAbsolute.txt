@@ -1,0 +1,15 @@
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/bin/Debug/net7.0/Utazasi_Iroda
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/bin/Debug/net7.0/Utazasi_Iroda.deps.json
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/bin/Debug/net7.0/Utazasi_Iroda.runtimeconfig.json
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/bin/Debug/net7.0/Utazasi_Iroda.dll
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/bin/Debug/net7.0/Utazasi_Iroda.pdb
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.csproj.AssemblyReference.cache
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.GeneratedMSBuildEditorConfig.editorconfig
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.AssemblyInfoInputs.cache
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.AssemblyInfo.cs
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.csproj.CoreCompileInputs.cache
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.dll
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/refint/Utazasi_Iroda.dll
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.pdb
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/Utazasi_Iroda.genruntimeconfig.cache
+/Users/deep/Projects/Utazasi_Iroda/Utazasi_Iroda/obj/Debug/net7.0/ref/Utazasi_Iroda.dll
