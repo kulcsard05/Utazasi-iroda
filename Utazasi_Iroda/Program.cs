@@ -1,4 +1,4 @@
-﻿/*
+/*
 1. Utasok kezelése.
     a. Lehessen felvenni és tárolni az utasok adatait: név, cím, telefonszám
     b. Utas adatainak módosítása utólag is megoldható legyen.
@@ -35,10 +35,8 @@ class Office
     {
         foreach (Traveler traveler in travelers)
         {
-            Console.WriteLine("Name: " + traveler.name);
-            Console.WriteLine("Home address: " + traveler.home_address);
-            Console.WriteLine("Phone number: " + traveler.phone_number);
-            Console.WriteLine();
+            
+            Console.WriteLine($"{travelers.IndexOf(traveler)} | Name: {traveler.name} Home address: {traveler.home_address} Phone number: {traveler.phone_number}");
         }
     }
 
@@ -46,10 +44,8 @@ class Office
     {
         foreach (Path path in paths)
         {
-            Console.WriteLine("Destination: " + path.destination);
-            Console.WriteLine("Price: " + path.price);
-            Console.WriteLine("Down payment: " + path.down_payment);
             Console.WriteLine();
+            Console.WriteLine($"{paths.IndexOf(path)} | Destination: {path.destination} Price: {path.price} Down payment: {path.down_payment}");
         }
     }
 
@@ -129,6 +125,7 @@ class Menu
 
     public void MainMenu (Office office)
     {
+        Console.Clear();
         Console.WriteLine("1. Add new traveler");
         Console.WriteLine("2. Add new path");
         Console.WriteLine("3. Travelers");
@@ -136,9 +133,7 @@ class Menu
         Console.WriteLine("5. Exit");
 
         Console.WriteLine();
-
-        Console.Write("Choose an option: ");
-
+        
         int option = 0;
         while(true) 
         {
@@ -155,7 +150,7 @@ class Menu
         switch (option)
         {
             case 1:
-                TravelerMenu();
+                TravelerMenu(office);
                 break;
             case 2:
                 PathMenu();
@@ -175,51 +170,20 @@ class Menu
         }
     }
 
-    public void TravelerMenu ()
+    public void TravelerMenu (Office office)
     {
         Console.Clear();
 
-        Console.WriteLine("1. Change name");
-        Console.WriteLine("2. Change home address");
-        Console.WriteLine("3. Change phone number");
+        string name = "";
+        string home_address = "";
+        string phone_number = "";
 
-        Console.WriteLine();
+        GetInput("Name: ", "string", out name);
+        GetInput("Home address: ", "string", out home_address);
+        GetInput("Phone number: ", "string", out phone_number);
 
-        Console.Write("Choose an option: ");
 
-        int option = 0;
-        while(true) 
-        {
-            string input;
-            string _option = GetInput("Choose an option: ", "int", out input);
-
-            if (input != "0")
-            {
-                option = Convert.ToInt32(input);
-                break;
-            }
-        }
-
-        switch (option)
-        {
-            case 1:
-                Console.Write("Enter the name: ");
-                string name = Console.ReadLine();
-                break;
-            case 2:
-                Console.Write("Enter the home address: ");
-                string home_address = Console.ReadLine();
-                break;
-            case 3:
-                Console.Write("Enter the phone number: ");
-                int phone_number = Convert.ToInt32(Console.ReadLine());
-                break;
-            default:
-                Console.WriteLine("Invalid option!");
-                break;
-        }
-
-        Office.AddTraveler(new Traveler(name, home_address, phone_number));
+        office.AddTraveler(new Traveler(name, home_address, phone_number));
     }
 
     public void PathMenu ()
@@ -236,9 +200,9 @@ struct Traveler
 {
     public string name;
     public string home_address;
-    public int phone_number;
+    public string phone_number;
 
-    public Traveler (string name, string home_address, int phone_number)
+    public Traveler (string name, string home_address, string phone_number)
     {
         this.name = name;
         this.home_address = home_address;
@@ -255,7 +219,7 @@ struct Traveler
         this.home_address = home_address;
     }
 
-    public void ChangePhoneNumber (int phone_number)
+    public void ChangePhoneNumber (string phone_number)
     {
         this.phone_number = phone_number;
     }
