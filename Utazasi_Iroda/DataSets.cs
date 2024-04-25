@@ -1,29 +1,31 @@
+using System.IO;
+
 struct Traveler
 {
-    public string name;
-    public string home_address;
-    public string phone_number;
+    public string Name { get; set;}
+    public string Home_address { get; set;}
+    public string Phone_number { get; set;}
 
     public Traveler (string name, string home_address, string phone_number)
     {
-        this.name = name;
-        this.home_address = home_address;
-        this.phone_number = phone_number;
+        Name = name;
+        Home_address = home_address;
+        Phone_number = phone_number;
     }
 
     public void ChangeName (string name)
     {
-        this.name = name;
+        Name = name;
     }
 
     public void ChangeHomeAddress (string home_address)
     {
-        this.home_address = home_address;
+        Home_address = home_address;
     }
 
     public void ChangePhoneNumber (string phone_number)
     {
-        this.phone_number = phone_number;
+        Phone_number = phone_number;
     }
 }
 
@@ -40,8 +42,8 @@ struct Path
         this.destination = destination;
         this.price = price;
         this.down_payment = down_payment;
-        this.travelers = new int[max_travelers];
-        this.paid_down_payment = new int[max_travelers];
+        travelers = new int[max_travelers];
+        paid_down_payment = new int[max_travelers];
     }
 
     public void ChangeDestination (string destination)
@@ -61,11 +63,43 @@ struct Path
 
     public void AddTraveler (int index)
     {
-        for (int i = 0; i < this.travelers.Length; i++)
+        for (int i = 0; i < travelers.Length; i++)
         {
-            if (this.travelers[i] == 0)
+            if (travelers[i] == 0)
             {
-                this.travelers[i] = index;
+                travelers[i] = index;
+                break;
+            }
+        }
+
+        //save it to file
+        //find the line with the index of this path
+        // index | destination | price | down_payment | [travelers]
+        // travelers would look like this [1, 4, 5] in the file 
+        string[] lines = File.ReadAllLines("paths.txt");
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] data = lines[i].Split(" | ");
+            if (Convert.ToInt32(data[0]) == index)
+            {
+                // if there is a 4th element in the data array get the travelers array from it and add the index to it
+                if (data.Length > 4)
+                {
+                    string[] travelers = data[4].Split(",");
+                    for (int j = 0; j < travelers.Length; j++)
+                    {
+                        if (Convert.ToInt32(travelers[j]) == 0)
+                        {
+                            travelers[j] = index.ToString();
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    lines[i] += "," + index;
+                }
+
                 break;
             }
         }
@@ -73,11 +107,43 @@ struct Path
 
     public void AddPaidDownPayment (int index)
     {
-        for (int i = 0; i < this.paid_down_payment.Length; i++)
+        for (int i = 0; i < paid_down_payment.Length; i++)
         {
-            if (this.paid_down_payment[i] == 0)
+            if (paid_down_payment[i] == 0)
             {
-                this.paid_down_payment[i] = index;
+                paid_down_payment[i] = index;
+                break;
+            }
+        }
+
+        //save it to file
+        //find the line with the index of this path
+        // index | destination | price | down_payment | [travelers] | [paid_down_payment]
+        // paid_down_payment would look like this [1, 4, 5] in the file
+        string[] lines = File.ReadAllLines("paths.txt");
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] data = lines[i].Split(" | ");
+            if (Convert.ToInt32(data[0]) == index)
+            {
+                // if there is a 5th element in the data array get the paid_down_payment array from it and add the index to it
+                if (data.Length > 5)
+                {
+                    string[] paid_down_payment = data[5].Split(",");
+                    for (int j = 0; j < paid_down_payment.Length; j++)
+                    {
+                        if (Convert.ToInt32(paid_down_payment[j]) == 0)
+                        {
+                            paid_down_payment[j] = index.ToString();
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    lines[i] += "," + index;
+                }
+
                 break;
             }
         }
@@ -85,11 +151,11 @@ struct Path
 
     public void RemoveTraveler (int index)
     {
-        for (int i = 0; i < this.travelers.Length; i++)
+        for (int i = 0; i < travelers.Length; i++)
         {
-            if (this.travelers[i] == index)
+            if (travelers[i] == index)
             {
-                this.travelers[i] = 0;
+                travelers[i] = 0;
                 break;
             }
         }

@@ -144,7 +144,7 @@ public partial class Program {
 
         int id = 0;
 
-        while(true) 
+        while(true)
         {
             string input;
 
@@ -162,10 +162,7 @@ public partial class Program {
             }
         }
 
-        if (id < paths.Count)
-        {
-            paths[id].AddTraveler(travelers.Count);
-        }
+        paths[id].AddTraveler(travelers.Count);
 
         string paid_down_payment = GetOption("Did they pay down payment?", new string[] { "Yes", "No" });
 
@@ -173,12 +170,6 @@ public partial class Program {
         {
             paths[id].AddPaidDownPayment(travelers.Count);
         }
-
-        Console.WriteLine(name);
-        Console.WriteLine(home_address);
-        Console.WriteLine(phone_number);
-
-        Console.ReadLine();
 
         var traveler = new Traveler(name, home_address, phone_number);
         AddTraveler(traveler);
@@ -240,7 +231,7 @@ public partial class Program {
     static void TravelerMenu ()
     {
         Console.Clear();
-        //if travelers list is empty
+
         if (travelers.Count == 0)
         {
             Console.WriteLine("No travelers found!");
@@ -252,7 +243,7 @@ public partial class Program {
         {
             Console.WriteLine();
             Console.WriteLine("Travelers:");
-            Console.WriteLine($"{travelers.IndexOf(traveler)} | Name: {traveler.name} | Home address: {traveler.home_address} | Phone number: {traveler.phone_number}");
+            Console.WriteLine($"{travelers.IndexOf(traveler)} | Name: {traveler.Name} | Home address: {traveler.Home_address} | Phone number: {traveler.Phone_number}");
         }
 
         int id = 0;
@@ -282,6 +273,8 @@ public partial class Program {
             Console.WriteLine("1. Change name");
             Console.WriteLine("2. Change home address");
             Console.WriteLine("3. Change phone number");
+            Console.WriteLine("4. Add to path");
+            Console.WriteLine("5. Pay down payment");
 
             int option2 = 0;
             while(true) 
@@ -296,23 +289,97 @@ public partial class Program {
                 }
             }
 
+            var traveler = travelers[id];
+            System.Console.WriteLine(traveler.Name);
+            Console.ReadLine();
+
             switch (option2)
             {
                 case 1:
                     string name = "";
                     string _name = GetInput("Name: ", "string", out name);
-                    travelers[id].ChangeName(name);
+                    
+                    traveler.Name = name;
                     break;
                 case 2:
                     string home_address = "";
                     string _home_address = GetInput("Home address: ", "string", out home_address);
-                    travelers[id].ChangeHomeAddress(home_address);
+
+                    traveler.Home_address = home_address;
                     break;
                 case 3:
                     string phone_number = "";
                     string _phone_number = GetInput("Phone number: ", "string", out phone_number);
 
-                    travelers[id].ChangePhoneNumber(phone_number);
+                    traveler.Phone_number = phone_number;
+                    break;
+                case 4:
+                    foreach (Path path in paths)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Paths:");
+                        Console.WriteLine($"{paths.IndexOf(path)} | Destination: {path.destination} Price: {path.price} Down payment: {path.down_payment}");
+                    }
+
+                    int id2 = 0;
+
+                    while(true)
+                    {
+                        string input;
+
+                        Console.WriteLine("Which path do you want to add the traveler to? (q:exit): ");
+                        string option = Console.ReadLine();
+
+                        if (option == "q")
+                        {
+                            break;
+                        }
+                        else if (Regex.IsMatch(option, @"^[0-9]+$"))
+                        {
+                            id2 = Convert.ToInt32(option);
+                            break;
+                        }
+                    }
+
+                    paths[id2].AddTraveler(id);
+
+                    string paid_down_payment = GetOption("Did they pay down payment?", new string[] { "Yes", "No" });
+
+                    if (paid_down_payment == "Yes")
+                    {
+                        paths[id2].AddPaidDownPayment(id);
+                    }
+
+                    break;
+                case 5:
+                    foreach (Path path in paths)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Paths:");
+                        Console.WriteLine($"{paths.IndexOf(path)} | Destination: {path.destination} Price: {path.price} Down payment: {path.down_payment}");
+                    }
+
+                    int id3 = 0;
+
+                    while(true)
+                    {
+                        string input;
+
+                        Console.WriteLine("Which path do you want to pay down payment for? (q:exit): ");
+                        string option = Console.ReadLine();
+
+                        if (option == "q")
+                        {
+                            break;
+                        }
+                        else if (Regex.IsMatch(option, @"^[0-9]+$"))
+                        {
+                            id3 = Convert.ToInt32(option);
+                            break;
+                        }
+                    }
+
+                    paths[id3].AddPaidDownPayment(id);
                     break;
                 default:
                     Console.WriteLine("Invalid option!");
@@ -380,34 +447,44 @@ public partial class Program {
                 }
             }
 
+            var path = paths[id];
+
             switch (option2)
             {
                 case 1:
                     string destination = "";
                     string _destination = GetInput("Destination: ", "string", out destination);
-                    paths[id].ChangeDestination(destination);
+
+                    path.ChangeDestination(destination);
+                    
                     break;
                 case 2:
                     int price = 0;
+
                     while(true) 
                     {
                         string input;
                         string _price_input = GetInput("Price: ", "int", out input);
 
+                        path.ChangePrice(price);
+                        
                         if (input != "0")
                         {
                             price = Convert.ToInt32(input);
                             break;
                         }
                     }
-                    paths[id].ChangePrice(price);
+
                     break;
                 case 3:
                     int down_payment = 0;
+
                     while(true) 
                     {
                         string input;
                         string _down_payment_input = GetInput("Down payment: ", "int", out input);
+
+                        path.ChangeDownPayment(down_payment);
 
                         if (input != "0")
                         {
@@ -415,7 +492,8 @@ public partial class Program {
                             break;
                         }
                     }
-                    paths[id].ChangeDownPayment(down_payment);
+
+
                     break;
                 default:
                     Console.WriteLine("Invalid option!");

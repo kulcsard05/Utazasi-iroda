@@ -7,7 +7,7 @@ public partial class Program {
         travelers.Add(traveler);
 
         //index | name | home_address | phone_number
-        string line = $"{travelers.IndexOf(traveler)} | {traveler.name} | {traveler.home_address} | {traveler.phone_number}";
+        string line = $"{travelers.IndexOf(traveler)} | {traveler.Name} | {traveler.Home_address} | {traveler.Phone_number}";
         File.AppendAllText("travelers.txt", line + Environment.NewLine);
     }
 

@@ -7,7 +7,5 @@
         while(true) {
             MainMenu();
         }
-        
-        Console.ReadLine();
     }
 }
