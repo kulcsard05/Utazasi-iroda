@@ -124,13 +124,14 @@ public partial class Program {
     {
         Console.Clear();
 
-        string name = "";
-        string home_address = "";
-        string phone_number = "";
+        Console.WriteLine("Name: ");
+        string name = Console.ReadLine();
 
-        GetInput("Name: ", "string", out name);
-        GetInput("Home address: ", "string", out home_address);
-        GetInput("Phone number: ", "string", out phone_number);
+        Console.WriteLine("Home address: ");
+        string home_address = Console.ReadLine();
+
+        Console.WriteLine("Phone number: ");
+        string phone_number = Console.ReadLine();
 
         Console.Clear();
 
@@ -172,6 +173,12 @@ public partial class Program {
         {
             paths[id].AddPaidDownPayment(travelers.Count);
         }
+
+        Console.WriteLine(name);
+        Console.WriteLine(home_address);
+        Console.WriteLine(phone_number);
+
+        Console.ReadLine();
 
         var traveler = new Traveler(name, home_address, phone_number);
         AddTraveler(traveler);
