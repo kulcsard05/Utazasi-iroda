@@ -56,19 +56,25 @@ public partial class Program {
                 string destination = data[1];
                 int price = Convert.ToInt32(data[2]);
                 int down_payment = Convert.ToInt32(data[3]);
-                string[] travelers = data[4].Split(", ");
-                string[] paid_down_payment = data[5].Split(", ");
 
                 var path = new Path(destination, price, down_payment, 0);
-
-                foreach (string index in travelers)
+                
+                if (data.Length > 4)
                 {
-                    path.AddTraveler(Convert.ToInt32(index));
+                    string[] travelers = data[4].Split(",");
+                    foreach (string index in travelers)
+                    {
+                        path.AddTraveler(Convert.ToInt32(index));
+                    }
                 }
 
-                foreach (string paid in paid_down_payment)
+                if (data.Length > 5)
                 {
-                    path.AddPaidDownPayment(Convert.ToInt32(paid));
+                    string[] paid_down_payment = data[5].Split(",");
+                    foreach (string index in paid_down_payment)
+                    {
+                        path.AddPaidDownPayment(Convert.ToInt32(index));
+                    }
                 }
 
                 paths.Insert(Convert.ToInt32(data[0]), path);

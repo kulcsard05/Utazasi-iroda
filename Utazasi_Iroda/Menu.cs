@@ -130,9 +130,10 @@ public partial class Program {
 
         GetInput("Name: ", "string", out name);
         GetInput("Home address: ", "string", out home_address);
-        GetInput("Phone number: ", "string", out phone_number);
+        GetInput("Phone number: ", "int", out phone_number);
 
-        AddTraveler(new Traveler(name, home_address, phone_number));
+        var traveler = new Traveler(name, home_address, phone_number);
+        AddTraveler(traveler);
     }
 
     static void AddPathMenu()
