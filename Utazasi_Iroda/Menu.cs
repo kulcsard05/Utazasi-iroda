@@ -132,6 +132,47 @@ public partial class Program {
         GetInput("Home address: ", "string", out home_address);
         GetInput("Phone number: ", "string", out phone_number);
 
+        Console.Clear();
+
+        foreach (Path path in paths)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Paths:");
+            Console.WriteLine($"{paths.IndexOf(path)} | Destination: {path.destination} Price: {path.price} Down payment: {path.down_payment}");
+        }
+
+        int id = 0;
+
+        while(true) 
+        {
+            string input;
+
+            Console.WriteLine("Which path do you want to add the traveler to? (q:exit): ");
+            string option = Console.ReadLine();
+
+            if (option == "q")
+            {
+                break;
+            }
+            else if (Regex.IsMatch(option, @"^[0-9]+$"))
+            {
+                id = Convert.ToInt32(option);
+                break;
+            }
+        }
+
+        if (id < paths.Count)
+        {
+            paths[id].AddTraveler(travelers.Count);
+        }
+
+        string paid_down_payment = GetOption("Did they pay down payment?", new string[] { "Yes", "No" });
+
+        if (paid_down_payment == "Yes")
+        {
+            paths[id].AddPaidDownPayment(travelers.Count);
+        }
+
         var traveler = new Traveler(name, home_address, phone_number);
         AddTraveler(traveler);
     }
@@ -218,6 +259,7 @@ public partial class Program {
 
             if (option == "q")
             {
+                exit = true;
                 break;
             }
             else if (Regex.IsMatch(option, @"^[0-9]+$"))
@@ -301,6 +343,7 @@ public partial class Program {
 
             if (option == "q")
             {
+                exit = true;
                 break;
             }
             else if (Regex.IsMatch(option, @"^[0-9]+$"))
