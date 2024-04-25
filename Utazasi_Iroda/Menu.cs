@@ -130,7 +130,7 @@ public partial class Program {
 
         GetInput("Name: ", "string", out name);
         GetInput("Home address: ", "string", out home_address);
-        GetInput("Phone number: ", "int", out phone_number);
+        GetInput("Phone number: ", "string", out phone_number);
 
         var traveler = new Traveler(name, home_address, phone_number);
         AddTraveler(traveler);
@@ -191,6 +191,7 @@ public partial class Program {
 
     static void TravelerMenu ()
     {
+        Console.Clear();
         //if travelers list is empty
         if (travelers.Count == 0)
         {
@@ -207,62 +208,73 @@ public partial class Program {
         }
 
         int id = 0;
+        bool exit = false;
         while(true) 
         {
             string input;
-            string _option = GetInput("Who do you want to change?: ", "int", out input);
 
-            if (input != "0")
+            Console.WriteLine("Which traveler do you want to change? (q:exit): ");
+            string option = Console.ReadLine();
+
+            if (option == "q")
             {
-                id = Convert.ToInt32(input);
+                break;
+            }
+            else if (Regex.IsMatch(option, @"^[0-9]+$"))
+            {
+                id = Convert.ToInt32(option);
                 break;
             }
         }
         
-        Console.WriteLine();
-        Console.WriteLine("1. Change name");
-        Console.WriteLine("2. Change home address");
-        Console.WriteLine("3. Change phone number");
-
-        int option = 0;
-        while(true) 
+        if (!exit)
         {
-            string input;
-            string _option = GetInput("Choose an option: ", "int", out input);
+            Console.WriteLine();
+            Console.WriteLine("1. Change name");
+            Console.WriteLine("2. Change home address");
+            Console.WriteLine("3. Change phone number");
 
-            if (input != "0")
+            int option2 = 0;
+            while(true) 
             {
-                option = Convert.ToInt32(input);
-                break;
+                string input;
+                string _option = GetInput("Choose an option: ", "int", out input);
+
+                if (input != "0")
+                {
+                    option2 = Convert.ToInt32(input);
+                    break;
+                }
             }
-        }
 
-        switch (option)
-        {
-            case 1:
-                string name = "";
-                string _name = GetInput("Name: ", "string", out name);
-                travelers[id].ChangeName(name);
-                break;
-            case 2:
-                string home_address = "";
-                string _home_address = GetInput("Home address: ", "string", out home_address);
-                travelers[id].ChangeHomeAddress(home_address);
-                break;
-            case 3:
-                string phone_number = "";
-                string _phone_number = GetInput("Phone number: ", "string", out phone_number);
+            switch (option2)
+            {
+                case 1:
+                    string name = "";
+                    string _name = GetInput("Name: ", "string", out name);
+                    travelers[id].ChangeName(name);
+                    break;
+                case 2:
+                    string home_address = "";
+                    string _home_address = GetInput("Home address: ", "string", out home_address);
+                    travelers[id].ChangeHomeAddress(home_address);
+                    break;
+                case 3:
+                    string phone_number = "";
+                    string _phone_number = GetInput("Phone number: ", "string", out phone_number);
 
-                travelers[id].ChangePhoneNumber(phone_number);
-                break;
-            default:
-                Console.WriteLine("Invalid option!");
-                break;
+                    travelers[id].ChangePhoneNumber(phone_number);
+                    break;
+                default:
+                    Console.WriteLine("Invalid option!");
+                    break;
+            }
         }
     }
 
     static void PathMenu ()
     {
+        Console.Clear();
         //if paths list is empty
         if (paths.Count == 0)
         {
@@ -279,82 +291,86 @@ public partial class Program {
         }
         
         int id = 0;
+        bool exit = false;
         while(true) 
         {
             string input;
-            string _option = GetInput("Which path do you want to change? (q:exit): ", "int", out input);
 
-            if (input == "q") 
+            Console.WriteLine("Which path do you want to change? (q:exit): ");
+            string option = Console.ReadLine();
+
+            if (option == "q")
             {
-                return;
-            } 
-            else if (input != "0")
+                break;
+            }
+            else if (Regex.IsMatch(option, @"^[0-9]+$"))
             {
-                id = Convert.ToInt32(input);
+                id = Convert.ToInt32(option);
                 break;
             }
         }
 
-        Console.WriteLine();
-        Console.WriteLine("1. Change destination");
-        Console.WriteLine("2. Change price");
-        Console.WriteLine("3. Change down payment");
-
-        int option = 0;
-        while(true) 
+        if (!exit)
         {
-            string input;
-            string _option = GetInput("Choose an option: ", "int", out input);
+            Console.WriteLine();
+            Console.WriteLine("1. Change destination");
+            Console.WriteLine("2. Change price");
+            Console.WriteLine("3. Change down payment");
 
-            if (input != "0")
+            int option2 = 0;
+            while(true) 
             {
-                option = Convert.ToInt32(input);
-                break;
+                string input;
+                string _option = GetInput("Choose an option: ", "int", out input);
+
+                if (input != "0")
+                {
+                    option2 = Convert.ToInt32(input);
+                    break;
+                }
+            }
+
+            switch (option2)
+            {
+                case 1:
+                    string destination = "";
+                    string _destination = GetInput("Destination: ", "string", out destination);
+                    paths[id].ChangeDestination(destination);
+                    break;
+                case 2:
+                    int price = 0;
+                    while(true) 
+                    {
+                        string input;
+                        string _price_input = GetInput("Price: ", "int", out input);
+
+                        if (input != "0")
+                        {
+                            price = Convert.ToInt32(input);
+                            break;
+                        }
+                    }
+                    paths[id].ChangePrice(price);
+                    break;
+                case 3:
+                    int down_payment = 0;
+                    while(true) 
+                    {
+                        string input;
+                        string _down_payment_input = GetInput("Down payment: ", "int", out input);
+
+                        if (input != "0")
+                        {
+                            down_payment = Convert.ToInt32(input);
+                            break;
+                        }
+                    }
+                    paths[id].ChangeDownPayment(down_payment);
+                    break;
+                default:
+                    Console.WriteLine("Invalid option!");
+                    break;
             }
         }
-
-        switch (option)
-        {
-            case 1:
-                string destination = "";
-                string _destination = GetInput("Destination: ", "string", out destination);
-                paths[id].ChangeDestination(destination);
-                break;
-            case 2:
-                int price = 0;
-                while(true) 
-                {
-                    string input;
-                    string _price_input = GetInput("Price: ", "int", out input);
-
-                    if (input != "0")
-                    {
-                        price = Convert.ToInt32(input);
-                        break;
-                    }
-                }
-                paths[id].ChangePrice(price);
-                break;
-            case 3:
-                int down_payment = 0;
-                while(true) 
-                {
-                    string input;
-                    string _down_payment_input = GetInput("Down payment: ", "int", out input);
-
-                    if (input != "0")
-                    {
-                        down_payment = Convert.ToInt32(input);
-                        break;
-                    }
-                }
-                paths[id].ChangeDownPayment(down_payment);
-                break;
-            default:
-                Console.WriteLine("Invalid option!");
-                break;
-        }
-
-        Console.ReadLine();
     }
 }
